@@ -10,12 +10,11 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack= 12;
 
+// Fight function with parameter, which would be enemyName
 var fight = function(enemyName) {
     //Repeat and execute as long as the enemy-robot is alive
     while(playerHealth > 0 && enemyHealth > 0) {
             // Place fight function code block here . . .
-            //Alert players that they are starting the round
-            //window.alert("Welcome to Robot Gladiators!");
 
             // Fight function statements - 
             // ask player if they would like to fight or run
@@ -49,8 +48,9 @@ var fight = function(enemyName) {
         }
             // If player choses to fight, then fight
             // ?why get rid of the below line if it allows us to enter "fight" and then enter
-            // Without this line we can just press enter and type nothing to "fight" 3.2.7... 
+            // without this line we can just press enter and type nothing to "fight" 3.2.7... 
             //if (promptFight === "fight" || promptFight === "FIGHT") {
+            
             // Remove enemy's health by subtracting the amount set in the playerAttack variable
             enemyHealth = enemyHealth - playerAttack;
             console.log(
@@ -62,7 +62,7 @@ var fight = function(enemyName) {
                 window.alert(enemyName + " has died!");
                 
                 //?added 3.2.7.. Award player money for winning
-                playermoney = playerMoney + 20;
+                playerMoney = playerMoney + 20;
                 
                 // Leave while() loop since enemy is dead
                 break;
@@ -89,9 +89,34 @@ var fight = function(enemyName) {
 
 // fight(); ..now being replaced by below for loop
 for (var i = 0; i < enemyNames.length; i++) {
+    //Alert players that they are starting the round
+    if (playerHealth > 0) {
+    // Let player know what round they are in, remeber that arrays starts at 0 so it needs to have 1 added to it
+        window.alert(
+        "Welcome to Robot Gladiators! Round "
+         + (i + 1));
+                                    
+        // Pick new enemy to fight on the index of the enemyNames array
+        var pickedEnemyName = enemyNames[i];
+                                    
+        // Reset enemyHealth before starting new fight
+        enemyHealth = 50;
+                                    
+        // Use debugger to pause script from running and check what's going on at that moment in the code
+        debugger;
+                                    
+        // Pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+        fight(pickedEnemyName);
+        } else {
+        window.alert(
+            "You have lost your robot in battle! Game Over!"
+        );
+    }
+    /* ? Deleting the below I believe according to 3.2.8.
     var pickedEnemyName = enemyNames[i];
     enemyHealth = 50;
     fight(pickedEnemyName);
+    */
 }
 /*
 var enemy1 = "Roberto"
