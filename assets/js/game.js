@@ -56,8 +56,11 @@ var fight = function(enemyName) {
             // without this line we can just press enter and type nothing to "fight" 3.2.7... 
             //if (promptFight === "fight" || promptFight === "FIGHT") {
             
-            // Remove enemy's health by subtracting the amount set in the playerAttack variable
-            enemyHealth = enemyHealth - playerAttack;
+            // 1Remove enemy's health by subtracting the amount set in the playerAttack variable
+            // 2Generate random damage value based on player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+            
+            enemyHealth = Math.max(0, enemyHealth - damage);
             console.log(
                 playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
             );
@@ -67,7 +70,7 @@ var fight = function(enemyName) {
                 window.alert(enemyName + " has died!");
                 
                 //?added 3.2.7.. Award player money for winning
-                playerMoney = playerMoney + 20;
+                playerMoney = Math.max(0, playerMoney - 10);
                 
                 // Leave while() loop since enemy is dead
                 break;
@@ -76,7 +79,9 @@ var fight = function(enemyName) {
             }
       
             // Remove player's health by subtracting the amount set in the enemyAttack variable
-            playerHealth = playerHealth - enemyAttack;
+            var damage = randomNumber(enemyAttack - 3, enemyAttack)
+            
+            playerHealth = Math.max(0, playerHealth - damage);
             console.log(
                 enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
             );
@@ -91,6 +96,14 @@ var fight = function(enemyName) {
             }
     }
 };
+
+// Function to generate a random numeric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (max - min +1) + min);
+
+    return value;
+};
+
 // fight(); ..now being replaced by below for loop
 // now for loop is being wrapped in a startGame() function
 // Function to start a new game
@@ -112,7 +125,7 @@ for (var i = 0; i < enemyNames.length; i++) {
         var pickedEnemyName = enemyNames[i];
                                     
         // Reset enemyHealth before starting new fight
-        enemyHealth = 50;
+        enemyHealth = randomNumber(40, 60);
                                     
         // Use debugger to pause script from running and check what's going on at that moment in the code
         //debugger;
