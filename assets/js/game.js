@@ -10,6 +10,11 @@ var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack= 12;
 
+console.log(enemyNames);
+console.log(enemyNames.length);
+console.log(enemyNames[0]);
+console.log(enemyNames[3]);
+
 // Fight function with parameter, which would be enemyName
 var fight = function(enemyName) {
     //Repeat and execute as long as the enemy-robot is alive
@@ -86,8 +91,15 @@ var fight = function(enemyName) {
             }
     }
 };
-
 // fight(); ..now being replaced by below for loop
+// now for loop is being wrapped in a startGame() function
+// Function to start a new game
+var startGame = function() {
+    // Reset player stats
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+
 for (var i = 0; i < enemyNames.length; i++) {
     //Alert players that they are starting the round
     if (playerHealth > 0) {
@@ -103,7 +115,7 @@ for (var i = 0; i < enemyNames.length; i++) {
         enemyHealth = 50;
                                     
         // Use debugger to pause script from running and check what's going on at that moment in the code
-        debugger;
+        //debugger;
                                     
         // Pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
@@ -111,30 +123,53 @@ for (var i = 0; i < enemyNames.length; i++) {
         window.alert(
             "You have lost your robot in battle! Game Over!"
         );
+        break;
+        }
     }
-    /* ? Deleting the below I believe according to 3.2.8.
-    var pickedEnemyName = enemyNames[i];
-    enemyHealth = 50;
-    fight(pickedEnemyName);
+// Start the game when the page loads
+//startGame();
+
+// After the loop ends, player is either out of health or enemis to fight, so run the endGame function
+endGame();
+};
+    /*
+    var enemy1 = "Roberto"
+    var enemy2 = "Amy Adroid";
+    var enemy3 = "Robo Trumble";
+
+    //console.log(enemyNames.length);
+
+    //for(var i = 0; i < enemyNames.length; i++) {
+    //console.log(enemyNames[i]);
+    //console.log(i);
+    //console.log(enemyNames[i] + " is at " + i + " index");
+    //}
+    // Game States
+    // "WIN" - Player robot has defeated all enemy-robots
+    //  * Fight all enemy-robots
+    //  * Defeat each enemy-robot
+    // "LOSE" - Player robot's health is zero or less
     */
-}
-/*
-var enemy1 = "Roberto"
-var enemy2 = "Amy Adroid";
-var enemy3 = "Robo Trumble";
 
-//console.log(enemyNames.length);
+// Function to end the entire game
+var endGame = function() {
+    // If player is still alive, player wins!
+    if (playerHealth > 0) {
+        window.alert("The game has now ended. Let's see how you did!");
+    } else {
+        window.alert("You've lost your robot in battle.");
+    }   
+    
+    // Ask player if they'd like to play again
+    var playAgainConfirm = window.confirm("Would you like to play again?");
 
-//for(var i = 0; i < enemyNames.length; i++) {
-  //console.log(enemyNames[i]);
-  //console.log(i);
-  //console.log(enemyNames[i] + " is at " + i + " index");
-//}
-// Game States
-// "WIN" - Player robot has defeated all enemy-robots
-//  * Fight all enemy-robots
+    if (playAgainConfirm) {
+        // Restart the game
+        startGame();
+    } else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    }
+    
+};
 
-//  * Defeat each enemy-robot
-
-// "LOSE" - Player robot's health is zero or less
-*/
+startGame();
