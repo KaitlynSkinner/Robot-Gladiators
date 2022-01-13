@@ -1,44 +1,56 @@
+// Function to confirm if player wants to skip or fight
+var fightOrSkip = function() {
+    // Ask the player if they'd like to fight or skip using fightOrSkip function
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+
+    //Enter the conditional recursive function call here!
+
+    // Validate prompt answer
+
+    // If player picks "skip" confirm and then stop the loop
+    // toLowercase which converts promptFight to all lowercase - check with less options
+    promptFight = promptFight.toLowerCase();
+    
+    if (promptFight === "skip") {
+        // Confirm player wants to skip
+        var confirmSkip = window.confirm(
+        "Are you sure you'd like to quit?"
+        );
+
+    // If yes (true), leave fight
+    if (confirmSkip) {
+        window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
+        // Subtract money from playerMoney for skipping
+        playerInfo.money = playerInfo.money - 10;
+        console.log("playerInfo.money", playerInfo.money);
+
+        // Return true if player wants to leave
+        return true;
+    }
+    // Conditional Recursive Function Call
+    // If the 'promptFight' is NOT a valid value, then execute the following statements.
+    if (!promptFight) {
+        window.alert("You need to provide a valid answer! Please try again.");
+        
+    }
+    }
+    // Return false otherwise
+    return false;
+};
+
 // Fight function with parameter, which would be enemyName
 var fight = function(enemy) {
     //Repeat and execute as long as the enemy-robot is alive
     while(playerInfo.health > 0 && enemy.health > 0) {
             // Place fight function code block here . . .
-
-            // Fight function statements - 
-            // ask player if they would like to fight or run
-            var promptFight = window.prompt(
-                "Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose."
-                );
-
-            // If player choses to skip - 
-            // confirm and then stop the loop
-            if (promptFight === "skip" || promptFight === "SKIP") {
-            // Confirm player wants to skip
-            var confirmSkip = window.confirm(
-                "Are you sure you'd like to quit?"
-                );
-      
-            // If yes (true), leave fight
-            if (confirmSkip) {
-                window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-            // Subtract money from playerMoney for skipping
-                playerInfo.money = playerInfo.money - 10;
-                console.log("playerInfo.money", playerInfo.money);
+            // *Repeat and execute as long as the enemy-robot is alive
+            if (fightOrSkip()) {
+                //If true, leave fight by breaking loop
                 break;
-            }
-
-            // ?we are moving or removing the below? 3.2.7. from here..
-            // If no (false), ask question again by running fight() again
-            //else {
-            //    fight();
-            //}
-            //?..up to here 3.2.7
-        }
-            // If player choses to fight, then fight
-            //if (promptFight === "fight" || promptFight === "FIGHT") {
-            
-            // 1Remove enemy's health by subtracting the amount set in the playerAttack variable
-            // 2Generate random damage value based on player's attack power
+            } 
+           
+            // 1) Remove enemy's health by subtracting the amount set in the playerAttack variable
+            // 2) Generate random damage value based on player's attack power
             var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
             
             enemy.health = Math.max(0, enemy.health - damage);
@@ -174,7 +186,7 @@ for (var i = 0; i < enemyInfo.length; i++) {
         window.alert(
         "Welcome to Robot Gladiators! Round "
          + (i + 1));
-         //debugger;   //this is the beginning of the game
+         debugger;   //this is the beginning of the game
     }                            
    
         // Pick new enemy to fight on the index of the enemyNames array
