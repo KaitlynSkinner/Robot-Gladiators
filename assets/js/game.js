@@ -110,7 +110,7 @@ var fight = function(enemy) {
                 }
         }
         // Switch turn order for next round
-        isPlayerTurn = !isPlayerTurn;
+        isPlayerTurn = (!isPlayerTurn);
     }
 };
 
