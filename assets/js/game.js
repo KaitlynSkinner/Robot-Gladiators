@@ -263,21 +263,49 @@ endGame();
 
 // Function to end the entire game
 var endGame = function() {
-    // If player is still alive, player wins!
-    if (playerInfo.health > 0) {
-        window.alert("The game has now ended. Let's see how you did!");
+    window.alert("The game has now ended. Let's see how you did!");
+
+    // Check localStorage for high score, if it's not there, use 0
+    var highScore = localStorage.getItem("highscore");
+    // If the highScore value is falsy (for example, null), then assign zero to highScore.
+    // If not, retain whatever value is currently stored in highScore.
+    if (highScore === null) {
+        highScore = 0;
+    }
+    // If player has more money than te high score, player has new high score!
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highscore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+
+        alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
     } else {
-        window.alert("You've lost your robot in battle.");
-    } 
+        alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
+    }
+
     // Ask player if they'd like to play again
     var playAgainConfirm = window.confirm("Would you like to play again?");
 
     if (playAgainConfirm) {
-        // Restart the game
         startGame();
     } else {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!");
     }
+     
+    // If player is still alive, player wins!
+    //if (playerInfo.health > 0) {
+    //    window.alert("The game has now ended. Let's see how you did!");
+    //} else {
+    //    window.alert("You've lost your robot in battle.");
+    //} 
+    // Ask player if they'd like to play again
+    //var playAgainConfirm = window.confirm("Would you like to play again?");
+
+    //if (playAgainConfirm) {
+        // Restart the game
+    //    startGame();
+    //} else {
+    //    window.alert("Thank you for playing Robot Gladiators! Come back soon!");
+    //}
 };
 
 var shop = function() {
